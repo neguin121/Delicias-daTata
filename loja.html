@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Delícias da Tata</title>
+
+<style>
+body{
+font-family: Arial;
+margin:0;
+
+background: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)),
+url("https://images.unsplash.com/photo-1551024601-bec78aea704b");
+background-size:cover;
+background-attachment:fixed;
+background-position:center;
+}
+
+header{
+background:transparent;
+color:#000;
+padding:20px;
+text-align:center;
+position:relative;
+}
+
+.pesquisa{
+padding:6px;
+border-radius:5px;
+border:none;
+}
+
+.menu-opcoes{
+position:absolute;
+top:20px;
+right:20px;
+cursor:pointer;
+font-size:22px;
+background:white;
+padding:8px 12px;
+border-radius:8px;
+box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+.menu-dropdown{
+display:none;
+position:absolute;
+top:60px;
+right:20px;
+background:white;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.2);
+width:160px;
+overflow:hidden;
+}
+
+.menu-dropdown div{
+padding:12px;
+cursor:pointer;
+border-bottom:1px solid #eee;
+}
+
+.menu-dropdown div:hover{
+background:#f2f2f2;
+}
+
+.produtos{
+display:grid;
+grid-template-columns:repeat(auto-fill, 200px);
+justify-content:center;
+gap:20px;
+padding:20px;
+}
+
+.produto{
+background:white;
+padding:15px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+text-align:center;
+cursor:pointer;
+}
+
+.produto img{
+width:100%;
+border-radius:10px;
+}
+
+.preco{
+color:#000000;
+font-weight:bold;
+}
+
+.whatsapp{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#25d366;
+color:white;
+padding:15px;
+border-radius:50%;
+text-decoration:none;
+font-weight:bold;
+}
+
+.instagram{
+position:fixed;
+bottom:20px;
+right:90px;
+background:#E4405F;
+color:white;
+padding:15px;
+border-radius:50%;
+text-decoration:none;
+}
+
+.chat{
+position:fixed;
+bottom:20px;
+right:160px;
+background:#08a4ff;
+color:white;
+padding:15px;
+border-radius:50%;
+cursor:pointer;
+}
+
+footer{
+text-align:center;
+padding:15px;
+background:#017cff;
+color:white;
+}
+
+.adicionar{
+display:none;
+background:white;
+margin:20px;
+padding:20px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+font-size:14px;
+}
+
+input{
+width:100%;
+padding:8px;
+margin:5px 0;
+font-size:13px;
+}
+
+button{
+background:#ff7aa2;
+color:white;
+border:none;
+padding:10px;
+cursor:pointer;
+border-radius:5px;
+}
+
+.modal{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.5);
+align-items:center;
+justify-content:center;
+}
+
+.modal-content{
+background:white;
+padding:20px;
+border-radius:10px;
+text-align:center;
+}
+
+.chatbox{
+display:none;
+position:fixed;
+bottom:90px;
+right:20px;
+width:250px;
+background:white;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.3);
+}
+
+.chatbox-header{
+background:#007bff;
+color:white;
+padding:10px;
+}
+
+.chatbox-messages{
+height:150px;
+overflow:auto;
+padding:10px;
+}
+
+.chatbox input{
+width:80%;
+}
+
+.admin-btn{
+position:fixed;
+left:20px;
+bottom:20px;
+background:#333;
+color:white;
+padding:10px 15px;
+border-radius:8px;
+cursor:pointer;
+}
+
+.admin{
+display:none;
+position:fixed;
+left:20px;
+bottom:70px;
+width:250px;
+background:white;
+padding:15px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.3);
+max-height:300px;
+overflow:auto;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<h1>Delícias da Tata</h1>
+<p>Faça já seu pedido</p>
+
+<input type="text" class="pesquisa" placeholder="Pesquisar produto..." onkeyup="pesquisarProduto()">
+
+<div class="menu-opcoes" onclick="abrirMenu()">☰</div>
+
+<div class="menu-dropdown" id="menuDropdown">
+<div onclick="meuPerfil()">👤 Meu Perfil</div>
+<div onclick="verPedidos()">📦 Pedidos</div>
+<div onclick="verEncomendas()">🎂 Encomendas</div>
+<div onclick="sairConta()">🚪 Sair</div>
+</div>
+
+</header>
+
+<section class="produtos" id="listaProdutos">
+
+<div class="produto" onclick="abrirPagamento('Bolo de Chocolate')">
+<img src="https://static.itdg.com.br/images/200-160/3b03a942ab534200a0a80eb324828ccb/246606-postprocess-71802381-1893-4fbe-b302-726bfca18774.jpg">
+<h3>Bolo de Chocolate</h3>
+<p class="preco">R$ 35,00</p>
+</div>
+
+<div class="produto" onclick="abrirPagamento('Copo do Amor 500ml')">
+<img src="https://http2.mlstatic.com/D_NQ_NP_967076-MLB43765803963_102020-O.webp">
+<h3>Copo do Amor 500ml</h3>
+<p class="preco">R$ 18,00</p>
+</div>
+
+<div class="produto" onclick="abrirPagamento('Ovo de Páscoa')">
+<img src="https://lojasantoantonio.vtexassets.com/arquivos/ids/226874/2925-Forma-de-Acetato-com-Silicone-para-Ovo-250g-BWB-3.jpg?v=638436018722970000">
+<h3>Ovo de Páscoa 250gm</h3>
+<p>Chocolate ao leite recheado</p>
+<p class="preco">R$ 60,00</p>
+</div>
+
+<div class="produto" onclick="abrirPagamento('Bolo no pote')">
+<img src="https://m.media-amazon.com/images/I/61dcnD4M6JL._AC_UF350,350_QL80_.jpg">
+<h3>Bolo no pote</h3>
+<p class="preco">R$ 15,00</p>
+</div>
+
+</section>
+
+<div class="adicionar" id="areaAdicionar">
+
+<h2>Adicionar Novo Produto</h2>
+
+<input type="text" id="nome" placeholder="Nome do produto">
+<input type="text" id="descricao" placeholder="Descrição">
+<input type="text" id="preco" placeholder="Preço">
+<input type="text" id="imagem" placeholder="Link da imagem">
+
+<button onclick="adicionarProduto()">Adicionar Produto</button>
+
+</div>
+
+<div class="modal" id="pagamento">
+
+<div class="modal-content">
+
+<h2>Pagamento via Pix</h2>
+<p>Seu pedido será enviado para o WhatsApp para pagamento via Pix.</p>
+<button onclick="finalizarCompra()">Continuar</button>
+
+</div>
+</div>
+
+<div class="chatbox" id="chatbox">
+
+<div class="chatbox-header">Atendimento</div>
+<div class="chatbox-messages" id="mensagens"></div>
+
+<input id="msg">
+<button onclick="enviarMsg()">Enviar</button>
+
+</div>
+
+<div class="chat" onclick="abrirChat()">💬</div>
+
+<a class="instagram" href="https://www.instagram.com/deliciasdatata2018/" target="_blank">📷</a>
+<a class="whatsapp" href="https://wa.me/5514997361120" target="_blank">💬</a>
+
+<div class="admin-btn" onclick="abrirAdmin()">⚙ Admin</div>
+
+<div class="admin" id="admin">
+<h3>Painel de Pedidos</h3>
+<div id="listaPedidos"></div>
+</div>
+
+<footer>
+© 2018 Delícias da Tata
+</footer>
+
+<script>
+
+let senhaAdmin = "tata123"
+let produtoSelecionado = ""
+let pedidos = JSON.parse(localStorage.getItem("pedidos")) || []
+
+function abrirMenu(){
+let menu = document.getElementById("menuDropdown")
+menu.style.display = menu.style.display === "block" ? "none" : "block"
+}
+
+function meuPerfil(){
+alert("Área de perfil em desenvolvimento")
+}
+
+function verPedidos(){
+
+if(pedidos.length === 0){
+alert("Nenhum pedido encontrado")
+return
+}
+
+let lista = pedidos.map(p => p.produto + " - " + p.data).join("\n")
+alert("Seus pedidos:\n\n" + lista)
+
+}
+
+function verEncomendas(){
+alert("Área de encomendas em desenvolvimento")
+}
+
+function sairConta(){
+alert("Sessão encerrada")
+location.reload()
+}
+
+function abrirAdmin(){
+
+let senha = prompt("Digite a senha do administrador:")
+
+if(senha === senhaAdmin){
+
+document.getElementById("admin").style.display="block"
+document.getElementById("areaAdicionar").style.display="block"
+
+}else{
+
+alert("Senha incorreta")
+
+}
+
+}
+
+function adicionarProduto(){
+
+let nome = document.getElementById("nome").value
+let descricao = document.getElementById("descricao").value
+let preco = document.getElementById("preco").value
+let imagem = document.getElementById("imagem").value
+
+let produto = `
+<div class="produto" onclick="abrirPagamento('${nome}')">
+<img src="${imagem}">
+<h3>${nome}</h3>
+<p>${descricao}</p>
+<p class="preco">R$ ${preco}</p>
+</div>
+`
+
+document.getElementById("listaProdutos").innerHTML += produto
+
+}
+
+function abrirPagamento(produto){
+produtoSelecionado = produto
+document.getElementById("pagamento").style.display="flex"
+}
+
+function finalizarCompra(){
+
+let pedido = {
+produto: produtoSelecionado,
+data: new Date().toLocaleString()
+}
+
+pedidos.push(pedido)
+
+localStorage.setItem("pedidos", JSON.stringify(pedidos))
+
+atualizarPainel()
+
+let mensagem = "Olá! Gostaria de fazer um pedido:%0A%0AProduto: "+produtoSelecionado+"%0APagamento: Pix%0ALoja: Delícias da Tata"
+
+let numero = "5514997361120"
+
+let link = "https://wa.me/"+numero+"?text="+mensagem
+
+window.open(link,"_blank")
+
+document.getElementById("pagamento").style.display="none"
+
+}
+
+function pesquisarProduto(){
+
+let input = document.querySelector(".pesquisa").value.toLowerCase()
+
+let produtos = document.querySelectorAll(".produto")
+
+produtos.forEach(p => {
+
+let nome = p.innerText.toLowerCase()
+
+p.style.display = nome.includes(input) ? "" : "none"
+
+})
+
+}
+
+function abrirChat(){
+
+let chat = document.getElementById("chatbox")
+
+chat.style.display = chat.style.display === "block" ? "none" : "block"
+
+}
+
+function enviarMsg(){
+
+let msg = document.getElementById("msg").value
+
+let area = document.getElementById("mensagens")
+
+area.innerHTML += "<div>"+msg+"</div>"
+
+document.getElementById("msg").value=""
+
+}
+
+function atualizarPainel(){
+
+let lista = document.getElementById("listaPedidos")
+
+lista.innerHTML=""
+
+pedidos.forEach((p,i)=>{
+
+lista.innerHTML += `
+<div style="border-bottom:1px solid #ccc;padding:5px;">
+Pedido: ${p.produto}<br>
+Data: ${p.data}<br>
+<button onclick="removerPedido(${i})">Remover</button>
+</div>
+`
+
+})
+
+}
+
+function removerPedido(i){
+
+pedidos.splice(i,1)
+
+localStorage.setItem("pedidos", JSON.stringify(pedidos))
+
+atualizarPainel()
+
+}
+
+window.onload = atualizarPainel
+
+</script>
+
+</body>
+</html>
