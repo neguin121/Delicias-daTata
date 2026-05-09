@@ -8,14 +8,14 @@
 
 <style>
   :root {
-    --rosa:     #5ba4cf;
-    --rosa-dark:#2e7fb5;
-    --creme:    #f0f7ff;
-    --marrom:   #0d2a3a;
-    --marrom2:  #2a5070;
-    --ouro:     #4a9fd4;
+    --rosa:     #e8637a;
+    --rosa-dark:#c44560;
+    --creme:    #fdf6ee;
+    --marrom:   #3a1f0d;
+    --marrom2:  #6b3a2a;
+    --ouro:     #c9963a;
     --branco:   #ffffff;
-    --sombra:   0 4px 24px rgba(13,42,58,.10);
+    --sombra:   0 4px 24px rgba(58,31,13,.10);
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -33,7 +33,7 @@
   .hero {
     min-height: 100svh;
     background:
-      linear-gradient(160deg, rgba(91,164,207,.18) 0%, rgba(240,247,255,.95) 55%),
+      linear-gradient(160deg, rgba(232,99,122,.18) 0%, rgba(253,246,238,.95) 55%),
       url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&q=80') center/cover no-repeat fixed;
     display: flex;
     flex-direction: column;
@@ -133,13 +133,13 @@
     align-items: center;
     justify-content: space-between;
     padding: 14px 24px;
-    background: rgba(240,247,255,.92);
+    background: rgba(253,246,238,.92);
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(13,42,58,.08);
+    border-bottom: 1px solid rgba(58,31,13,.08);
     transition: box-shadow .3s;
   }
 
-  nav.scrolled { box-shadow: 0 2px 20px rgba(13,42,58,.12); }
+  nav.scrolled { box-shadow: 0 2px 20px rgba(58,31,13,.12); }
 
   .nav-logo {
     font-family: 'Playfair Display', serif;
@@ -282,7 +282,7 @@
   .filtro {
     padding: 8px 20px;
     border-radius: 50px;
-    border: 2px solid rgba(13,42,58,.15);
+    border: 2px solid rgba(58,31,13,.15);
     background: transparent;
     font-size: 13px;
     font-weight: 500;
@@ -311,7 +311,7 @@
     transition: transform .25s, box-shadow .25s;
     cursor: pointer;
   }
-  .card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(13,42,58,.15); }
+  .card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(58,31,13,.15); }
 
   .card-img {
     width: 100%; height: 200px;
@@ -372,7 +372,7 @@
 
   /* ─── ENCOMENDA DESTAQUE ─── */
   .encomenda-banner {
-    background: linear-gradient(135deg, #0d2a3a 0%, #1a4a6b 100%);
+    background: linear-gradient(135deg, var(--marrom) 0%, var(--marrom2) 100%);
     border-radius: 24px;
     padding: 56px 48px;
     display: flex;
@@ -409,7 +409,7 @@
     font-size: 15px;
     padding: 16px 36px;
   }
-  .encomenda-banner .btn-primary:hover { background: #2270a8; }
+  .encomenda-banner .btn-primary:hover { background: #b07d28; }
 
   /* ─── COMO FUNCIONA ─── */
   .steps {
@@ -549,7 +549,7 @@
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,20,40,.60);
+    background: rgba(0,0,0,.55);
     z-index: 1000;
     align-items: center;
     justify-content: center;
@@ -622,7 +622,7 @@
   .form-group select {
     width: 100%;
     padding: 11px 14px;
-    border: 2px solid rgba(13,42,58,.12);
+    border: 2px solid rgba(58,31,13,.12);
     border-radius: 10px;
     font-size: 14px;
     font-family: 'DM Sans', sans-serif;
@@ -665,7 +665,7 @@
   .btn-wpp:hover { background: #1aad54; }
 
   .btn-cancel {
-    background: rgba(13,42,58,.08);
+    background: rgba(58,31,13,.08);
     color: var(--marrom);
     border: none;
     padding: 14px 20px;
@@ -675,7 +675,7 @@
     font-family: 'DM Sans', sans-serif;
     transition: background .2s;
   }
-  .btn-cancel:hover { background: rgba(13,42,58,.15); }
+  .btn-cancel:hover { background: rgba(58,31,13,.15); }
 
   /* ─── ENCOMENDA MODAL ─── */
   .item-list { margin: 16px 0; }
@@ -689,7 +689,7 @@
     justify-content: space-between;
     align-items: center;
     font-size: 13px;
-    border: 1px solid rgba(13,42,58,.08);
+    border: 1px solid rgba(58,31,13,.08);
   }
 
   .item-card-info { flex: 1; }
@@ -697,7 +697,7 @@
   .item-card-info span { color: var(--marrom2); }
 
   .item-remove {
-    background: #ddeeff;
+    background: #ffe0e6;
     color: var(--rosa-dark);
     border: none;
     padding: 4px 10px;
@@ -712,7 +712,7 @@
     border-radius: 14px;
     padding: 16px;
     margin-bottom: 16px;
-    border: 2px dashed rgba(91,164,207,.3);
+    border: 2px dashed rgba(232,99,122,.3);
   }
 
   .add-item-form h4 {
@@ -741,7 +741,7 @@
     display: flex;
     align-items: center;
     background: #fff;
-    border: 2px solid rgba(13,42,58,.12);
+    border: 2px solid rgba(58,31,13,.12);
     border-radius: 50px;
     padding: 10px 20px;
     max-width: 420px;
@@ -796,114 +796,6 @@
     .steps { grid-template-columns: 1fr; }
     .diferenciais-grid { grid-template-columns: 1fr 1fr; }
   }
-
-  /* ─── ADMIN NAV BTN ─── */
-  .btn-admin-nav {
-    background: rgba(13,42,58,.08);
-    color: var(--marrom);
-    border: 2px solid rgba(13,42,58,.15);
-    padding: 7px 14px;
-    border-radius: 50px;
-    font-size: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-    transition: all .2s;
-    letter-spacing: .04em;
-  }
-  .btn-admin-nav:hover { background: var(--marrom); color: #fff; border-color: var(--marrom); }
-
-  /* ─── ADMIN PANEL ─── */
-  .admin-prod-list { margin: 12px 0 20px; display: flex; flex-direction: column; gap: 10px; }
-
-  .admin-prod-item {
-    background: #fff;
-    border-radius: 12px;
-    padding: 12px 14px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    border: 1px solid rgba(13,42,58,.08);
-  }
-
-  .admin-prod-item img {
-    width: 52px; height: 52px;
-    border-radius: 8px;
-    object-fit: cover;
-    flex-shrink: 0;
-  }
-
-  .admin-prod-item-info { flex: 1; min-width: 0; }
-  .admin-prod-item-info b { display: block; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .admin-prod-item-info span { font-size: 12px; color: var(--marrom2); }
-
-  .admin-prod-actions { display: flex; gap: 6px; flex-shrink: 0; }
-
-  .btn-edit-prod {
-    background: #e8f4ff;
-    color: var(--rosa-dark);
-    border: none;
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-size: 12px;
-    cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-  }
-  .btn-edit-prod:hover { background: var(--rosa); color: #fff; }
-
-  .btn-del-prod {
-    background: #ffe0e0;
-    color: #c0392b;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-size: 12px;
-    cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-  }
-  .btn-del-prod:hover { background: #c0392b; color: #fff; }
-
-  .admin-divider {
-    border: none;
-    border-top: 2px dashed rgba(91,164,207,.3);
-    margin: 20px 0;
-  }
-
-  .admin-section-title {
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    color: var(--ouro);
-    margin-bottom: 14px;
-  }
-
-  .cat-select {
-    width: 100%;
-    padding: 11px 14px;
-    border: 2px solid rgba(13,42,58,.12);
-    border-radius: 10px;
-    font-size: 14px;
-    font-family: 'DM Sans', sans-serif;
-    background: #fff;
-    color: var(--marrom);
-    outline: none;
-    -webkit-appearance: none;
-    cursor: pointer;
-  }
-  .cat-select:focus { border-color: var(--rosa); }
-
-  .badge-logado {
-    display: inline-block;
-    background: #d4edda;
-    color: #155724;
-    font-size: 11px;
-    padding: 3px 10px;
-    border-radius: 20px;
-    font-weight: 600;
-    margin-left: 8px;
-  }
-
 </style>
 </head>
 <body>
@@ -917,7 +809,6 @@
     <li><a href="#como-funciona">Como Funciona</a></li>
     <li><a href="#contato">Contato</a></li>
   </ul>
-  <button class="btn-admin-nav" onclick="abrirLoginAdmin()">⚙ Admin</button>
   <button class="hamburger" onclick="abrirMenuMobile()" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
@@ -1388,229 +1279,9 @@ window.addEventListener('scroll', () => {
   document.getElementById("navbar").classList.toggle("scrolled", window.scrollY > 40);
 });
 
-
-/* ─── ADMIN ─── */
-const SENHA_ADMIN = "tata2025";
-let adminLogado = false;
-
-function abrirLoginAdmin() {
-  if (adminLogado) { abrirPainelAdmin(); return; }
-  document.getElementById("senhaAdminInput").value = "";
-  document.getElementById("loginErro").style.display = "none";
-  abrirModal("modalLoginAdmin");
-  setTimeout(() => document.getElementById("senhaAdminInput").focus(), 200);
-}
-
-function confirmarLogin() {
-  const s = document.getElementById("senhaAdminInput").value;
-  if (s === SENHA_ADMIN) {
-    adminLogado = true;
-    fecharModal("modalLoginAdmin");
-    abrirPainelAdmin();
-  } else {
-    document.getElementById("loginErro").style.display = "block";
-    document.getElementById("senhaAdminInput").value = "";
-    document.getElementById("senhaAdminInput").focus();
-  }
-}
-
-function abrirPainelAdmin() {
-  cancelarEdicao();
-  renderAdminLista();
-  abrirModal("modalAdmin");
-}
-
-function fecharAdmin() {
-  fecharModal("modalAdmin");
-}
-
-function renderAdminLista() {
-  const el = document.getElementById("adminProdList");
-  if (produtos.length === 0) {
-    el.innerHTML = '<p style="font-size:13px;color:var(--marrom2);">Nenhum produto cadastrado.</p>';
-    return;
-  }
-  el.innerHTML = produtos.map((p, i) => `
-    <div class="admin-prod-item">
-      <img src="${p.img}" alt="${p.nome}" onerror="this.src='https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=100'">
-      <div class="admin-prod-item-info">
-        <b>${p.nome}</b>
-        <span>${p.preco} · ${p.categoria}</span>
-      </div>
-      <div class="admin-prod-actions">
-        <button class="btn-edit-prod" onclick="editarProduto(${i})">✏ Editar</button>
-        <button class="btn-del-prod" onclick="removerProduto(${i})">🗑</button>
-      </div>
-    </div>
-  `).join("");
-}
-
-function editarProduto(i) {
-  const p = produtos[i];
-  document.getElementById("adminEditIdx").value = i;
-  document.getElementById("adminNome").value  = p.nome;
-  document.getElementById("adminDesc").value  = p.descricao;
-  document.getElementById("adminPreco").value = p.preco;
-  document.getElementById("adminCat").value   = p.categoria;
-  document.getElementById("adminImg").value   = p.img;
-  document.getElementById("adminFormTitulo").textContent = "✏ Editando: " + p.nome;
-  document.getElementById("adminCancelEdit").style.display = "block";
-  previewImg();
-  document.getElementById("adminNome").scrollIntoView({ behavior: "smooth", block: "center" });
-}
-
-function removerProduto(i) {
-  if (!confirm("Remover "" + produtos[i].nome + "" do cardápio?")) return;
-  produtos.splice(i, 1);
-  salvarProdutosLocal();
-  renderAdminLista();
-  aplicarFiltros();
-}
-
-function salvarProdutoAdmin() {
-  const nome  = document.getElementById("adminNome").value.trim();
-  const desc  = document.getElementById("adminDesc").value.trim();
-  const preco = document.getElementById("adminPreco").value.trim();
-  const cat   = document.getElementById("adminCat").value;
-  const img   = document.getElementById("adminImg").value.trim();
-  const idx   = parseInt(document.getElementById("adminEditIdx").value);
-
-  if (!nome || !preco) { alert("Preencha pelo menos nome e preço."); return; }
-
-  const prod = { nome, descricao: desc, preco, categoria: cat, img: img || "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&q=80" };
-
-  if (idx >= 0) {
-    produtos[idx] = prod;
-  } else {
-    produtos.push(prod);
-  }
-
-  salvarProdutosLocal();
-  aplicarFiltros();
-  renderAdminLista();
-  cancelarEdicao();
-  alert(idx >= 0 ? "✅ Produto atualizado!" : "✅ Produto adicionado ao cardápio!");
-}
-
-function cancelarEdicao() {
-  document.getElementById("adminEditIdx").value = -1;
-  document.getElementById("adminNome").value  = "";
-  document.getElementById("adminDesc").value  = "";
-  document.getElementById("adminPreco").value = "";
-  document.getElementById("adminCat").value   = "bolos";
-  document.getElementById("adminImg").value   = "";
-  document.getElementById("adminFormTitulo").textContent = "➕ Adicionar novo produto";
-  document.getElementById("adminCancelEdit").style.display = "none";
-  document.getElementById("adminImgPreview").style.display = "none";
-}
-
-function previewImg() {
-  const url = document.getElementById("adminImg").value.trim();
-  const preview = document.getElementById("adminImgPreview");
-  const thumb = document.getElementById("adminImgThumb");
-  if (url) { thumb.src = url; preview.style.display = "block"; }
-  else { preview.style.display = "none"; }
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  const input = document.getElementById("adminImg");
-  if (input) input.addEventListener("input", previewImg);
-});
-
-function salvarProdutosLocal() {
-  localStorage.setItem("dt_produtos", JSON.stringify(produtos));
-}
-
-// Carregar produtos salvos do localStorage (sobrescreve o array padrão se existir)
-(function carregarProdutosLocal() {
-  const saved = localStorage.getItem("dt_produtos");
-  if (saved) {
-    try {
-      const arr = JSON.parse(saved);
-      if (Array.isArray(arr) && arr.length > 0) {
-        produtos.length = 0;
-        arr.forEach(p => produtos.push(p));
-      }
-    } catch(e) {}
-  }
-})();
-
 /* ─── INIT ─── */
 renderProdutos(produtos);
 </script>
-
-<!-- ========== MODAL: LOGIN ADMIN ========== -->
-<div class="modal-overlay" id="modalLoginAdmin">
-  <div class="modal-box" style="max-width:360px;">
-    <button class="modal-close" onclick="fecharModal('modalLoginAdmin')">✕</button>
-    <h2>🔐 Área Admin</h2>
-    <p>Digite a senha de administrador para acessar o painel de produtos.</p>
-    <div class="form-group">
-      <label>Senha</label>
-      <input type="password" id="senhaAdminInput" placeholder="••••••••" onkeydown="if(event.key==='Enter') confirmarLogin()">
-    </div>
-    <div id="loginErro" style="color:#c0392b;font-size:13px;margin-bottom:12px;display:none;">Senha incorreta. Tente novamente.</div>
-    <div class="modal-actions">
-      <button class="btn-wpp" style="background:var(--rosa-dark);" onclick="confirmarLogin()">Entrar</button>
-      <button class="btn-cancel" onclick="fecharModal('modalLoginAdmin')">Cancelar</button>
-    </div>
-  </div>
-</div>
-
-<!-- ========== MODAL: PAINEL ADMIN ========== -->
-<div class="modal-overlay" id="modalAdmin">
-  <div class="modal-box" style="max-width:520px;">
-    <button class="modal-close" onclick="fecharAdmin()">✕</button>
-    <h2>⚙ Painel Admin <span class="badge-logado">Logado</span></h2>
-    <p>Gerencie os produtos do cardápio — edite, remova ou adicione novos itens.</p>
-
-    <!-- LISTA DE PRODUTOS -->
-    <div class="admin-section-title">📋 Produtos cadastrados</div>
-    <div class="admin-prod-list" id="adminProdList"></div>
-
-    <hr class="admin-divider">
-
-    <!-- FORM NOVO / EDITAR PRODUTO -->
-    <div class="admin-section-title" id="adminFormTitulo">➕ Adicionar novo produto</div>
-    <input type="hidden" id="adminEditIdx" value="-1">
-
-    <div class="form-group">
-      <label>Nome do produto</label>
-      <input type="text" id="adminNome" placeholder="Ex: Torta de Morango">
-    </div>
-    <div class="form-group">
-      <label>Descrição</label>
-      <input type="text" id="adminDesc" placeholder="Ex: Base crocante com creme e morangos frescos">
-    </div>
-    <div class="form-group">
-      <label>Preço</label>
-      <input type="text" id="adminPreco" placeholder="Ex: R$ 45,00">
-    </div>
-    <div class="form-group">
-      <label>Categoria</label>
-      <select class="cat-select" id="adminCat">
-        <option value="bolos">Bolos</option>
-        <option value="doces">Doces</option>
-        <option value="especiais">Especiais</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label>URL da foto</label>
-      <input type="text" id="adminImg" placeholder="https://...">
-    </div>
-    <div id="adminImgPreview" style="margin-bottom:14px;display:none;">
-      <img id="adminImgThumb" style="width:100%;height:140px;object-fit:cover;border-radius:10px;">
-    </div>
-
-    <div class="modal-actions">
-      <button class="btn-wpp" style="background:var(--rosa-dark);" onclick="salvarProdutoAdmin()">💾 Salvar Produto</button>
-      <button class="btn-cancel" id="adminCancelEdit" style="display:none;" onclick="cancelarEdicao()">Cancelar edição</button>
-    </div>
-
-    <hr class="admin-divider" style="margin-top:20px;">
-    <button class="btn-cancel" style="width:100%;text-align:center;" onclick="fecharAdmin()">Sair do painel</button>
-  </div>
-</div>
-
 </body>
 </html>
+
