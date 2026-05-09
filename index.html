@@ -3,507 +3,995 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Delícias da Tata</title>
+<title>Delícias da Tata — Confeitaria Artesanal</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-body{
-font-family: Arial;
-margin:0;
+  :root {
+    --rosa:     #5ba4cf;
+    --rosa-dark:#2e7fb5;
+    --creme:    #f0f7ff;
+    --marrom:   #0d2a3a;
+    --marrom2:  #2a5070;
+    --ouro:     #4a9fd4;
+    --branco:   #ffffff;
+    --sombra:   0 4px 24px rgba(13,42,58,.10);
+  }
 
-background: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)),
-url("https://images.unsplash.com/photo-1551024601-bec78aea704b");
-background-size:cover;
-background-attachment:fixed;
-background-position:center;
-}
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-header{
-background:transparent;
-color:#000;
-padding:20px;
-text-align:center;
-position:relative;
-}
+  html { scroll-behavior: smooth; }
 
-.pesquisa{
-padding:6px;
-border-radius:5px;
-border:none;
-}
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--creme);
+    color: var(--marrom);
+    overflow-x: hidden;
+  }
 
-.menu-opcoes{
-position:absolute;
-top:20px;
-right:20px;
-cursor:pointer;
-font-size:22px;
-background:white;
-padding:8px 12px;
-border-radius:8px;
-box-shadow:0 0 10px rgba(0,0,0,0.2);
-}
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100svh;
+    background:
+      linear-gradient(160deg, rgba(91,164,207,.18) 0%, rgba(240,247,255,.95) 55%),
+      url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&q=80') center/cover no-repeat fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px;
+    position: relative;
+  }
 
-.menu-dropdown{
-display:none;
-position:absolute;
-top:60px;
-right:20px;
-background:white;
-border-radius:10px;
-box-shadow:0 0 10px rgba(0,0,0,0.2);
-width:160px;
-overflow:hidden;
-}
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 80px;
+    background: linear-gradient(to bottom, transparent, var(--creme));
+  }
 
-.menu-dropdown div{
-padding:12px;
-cursor:pointer;
-border-bottom:1px solid #eee;
-}
+  .logo-tag {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(13px, 3vw, 16px);
+    letter-spacing: .25em;
+    color: var(--rosa);
+    margin-bottom: 12px;
+    animation: fadeUp .6s ease both;
+  }
 
-.menu-dropdown div:hover{
-background:#f2f2f2;
-}
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.6rem, 9vw, 5.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--marrom);
+    animation: fadeUp .7s .1s ease both;
+  }
 
-.produtos{
-display:grid;
-grid-template-columns:repeat(auto-fill, 200px);
-justify-content:center;
-gap:20px;
-padding:20px;
-}
+  .hero h1 em {
+    color: var(--rosa);
+    font-style: italic;
+  }
 
-.produto{
-background:white;
-padding:15px;
-border-radius:10px;
-box-shadow:0 0 10px rgba(0,0,0,0.1);
-text-align:center;
-cursor:pointer;
-}
+  .hero p {
+    margin-top: 16px;
+    font-size: clamp(14px, 2.5vw, 18px);
+    color: var(--marrom2);
+    max-width: 480px;
+    line-height: 1.6;
+    animation: fadeUp .7s .2s ease both;
+  }
 
-.produto img{
-width:100%;
-border-radius:10px;
-}
+  .hero-btns {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 32px;
+    animation: fadeUp .7s .3s ease both;
+  }
 
-.preco{
-color:#000000;
-font-weight:bold;
-}
+  .btn-primary {
+    background: var(--rosa);
+    color: #fff;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background .2s, transform .15s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--rosa-dark); transform: translateY(-2px); }
 
-.whatsapp{
-position:fixed;
-bottom:20px;
-right:20px;
-background:#25d366;
-color:white;
-padding:15px;
-border-radius:50%;
-text-decoration:none;
-font-weight:bold;
-}
+  .btn-outline {
+    background: transparent;
+    color: var(--marrom);
+    border: 2px solid var(--marrom);
+    padding: 13px 28px;
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all .2s;
+    display: inline-block;
+  }
+  .btn-outline:hover { background: var(--marrom); color: #fff; }
 
-.instagram{
-position:fixed;
-bottom:20px;
-right:90px;
-background:#E4405F;
-color:white;
-padding:15px;
-border-radius:50%;
-text-decoration:none;
-}
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 900;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 24px;
+    background: rgba(240,247,255,.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(13,42,58,.08);
+    transition: box-shadow .3s;
+  }
 
-.chat{
-position:fixed;
-bottom:20px;
-right:160px;
-background:#08a4ff;
-color:white;
-padding:15px;
-border-radius:50%;
-cursor:pointer;
-}
+  nav.scrolled { box-shadow: 0 2px 20px rgba(13,42,58,.12); }
 
-footer{
-text-align:center;
-padding:15px;
-background:#017cff;
-color:white;
-}
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--rosa);
+    text-decoration: none;
+  }
 
-.adicionar{
-display:none;
-background:white;
-margin:20px;
-padding:20px;
-border-radius:10px;
-box-shadow:0 0 10px rgba(0,0,0,0.1);
-font-size:14px;
-}
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+  }
 
-input{
-width:100%;
-padding:8px;
-margin:5px 0;
-font-size:13px;
-}
+  .nav-links a {
+    text-decoration: none;
+    color: var(--marrom);
+    font-size: 14px;
+    font-weight: 500;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--rosa); }
 
-button{
-background:#ff7aa2;
-color:white;
-border:none;
-padding:10px;
-cursor:pointer;
-border-radius:5px;
-}
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+  .hamburger span {
+    display: block; width: 24px; height: 2px;
+    background: var(--marrom); border-radius: 2px;
+    transition: all .3s;
+  }
 
-.modal{
-display:none;
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.5);
-align-items:center;
-justify-content:center;
-}
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: var(--creme);
+    z-index: 850;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    color: var(--marrom);
+    text-decoration: none;
+  }
+  .mobile-menu a:hover { color: var(--rosa); }
+  .close-menu {
+    position: absolute;
+    top: 20px; right: 24px;
+    font-size: 28px;
+    cursor: pointer;
+    color: var(--marrom);
+    background: none;
+    border: none;
+  }
 
-.modal-content{
-background:white;
-padding:20px;
-border-radius:10px;
-text-align:center;
-}
+  /* ─── SECTION TITLES ─── */
+  .section {
+    padding: 80px 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
 
-.chatbox{
-display:none;
-position:fixed;
-bottom:90px;
-right:20px;
-width:250px;
-background:white;
-border-radius:10px;
-box-shadow:0 0 10px rgba(0,0,0,0.3);
-}
+  .section-label {
+    font-size: 12px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--ouro);
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
 
-.chatbox-header{
-background:#007bff;
-color:white;
-padding:10px;
-}
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    color: var(--marrom);
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
 
-.chatbox-messages{
-height:150px;
-overflow:auto;
-padding:10px;
-}
+  .section-title em { color: var(--rosa); font-style: italic; }
 
-.chatbox input{
-width:80%;
-}
+  .section-sub {
+    font-size: 15px;
+    color: var(--marrom2);
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 48px;
+  }
 
-.admin-btn{
-position:fixed;
-left:20px;
-bottom:20px;
-background:#333;
-color:white;
-padding:10px 15px;
-border-radius:8px;
-cursor:pointer;
-}
+  /* ─── DIFERENCIAIS ─── */
+  .diferenciais-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+    margin-top: 48px;
+  }
 
-.admin{
-display:none;
-position:fixed;
-left:20px;
-bottom:70px;
-width:250px;
-background:white;
-padding:15px;
-border-radius:10px;
-box-shadow:0 0 10px rgba(0,0,0,0.3);
-max-height:300px;
-overflow:auto;
-}
+  .diferencial {
+    background: #fff;
+    border-radius: 20px;
+    padding: 28px 24px;
+    box-shadow: var(--sombra);
+    text-align: center;
+    transition: transform .2s;
+  }
+  .diferencial:hover { transform: translateY(-4px); }
+  .diferencial .icon { font-size: 36px; margin-bottom: 12px; }
+  .diferencial h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+  .diferencial p { font-size: 13px; color: var(--marrom2); line-height: 1.6; }
 
+  /* ─── PRODUTOS ─── */
+  #cardapio { background: #fff; padding: 80px 0; }
+
+  .cardapio-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .filtros {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 36px;
+  }
+
+  .filtro {
+    padding: 8px 20px;
+    border-radius: 50px;
+    border: 2px solid rgba(13,42,58,.15);
+    background: transparent;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all .2s;
+    color: var(--marrom);
+    font-family: 'DM Sans', sans-serif;
+  }
+  .filtro.ativo, .filtro:hover {
+    background: var(--rosa);
+    border-color: var(--rosa);
+    color: #fff;
+  }
+
+  .produtos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 24px;
+  }
+
+  .card {
+    background: var(--creme);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--sombra);
+    transition: transform .25s, box-shadow .25s;
+    cursor: pointer;
+  }
+  .card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(13,42,58,.15); }
+
+  .card-img {
+    width: 100%; height: 200px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .card-body { padding: 18px 20px 22px; }
+
+  .card-tag {
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ouro);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    margin-bottom: 6px;
+    color: var(--marrom);
+  }
+
+  .card p {
+    font-size: 13px;
+    color: var(--marrom2);
+    line-height: 1.5;
+    margin-bottom: 14px;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .preco {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--rosa-dark);
+  }
+
+  .btn-pedir {
+    background: var(--rosa);
+    color: #fff;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background .2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-pedir:hover { background: var(--rosa-dark); }
+
+  /* ─── ENCOMENDA DESTAQUE ─── */
+  .encomenda-banner {
+    background: linear-gradient(135deg, #0d2a3a 0%, #1a4a6b 100%);
+    border-radius: 24px;
+    padding: 56px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    flex-wrap: wrap;
+    margin: 80px 20px;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .encomenda-banner h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.6rem);
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+
+  .encomenda-banner h2 em { color: var(--ouro); font-style: italic; }
+
+  .encomenda-banner p {
+    color: rgba(255,255,255,.72);
+    font-size: 15px;
+    line-height: 1.7;
+    max-width: 380px;
+  }
+
+  .encomenda-banner .btn-primary {
+    background: var(--ouro);
+    white-space: nowrap;
+    font-size: 15px;
+    padding: 16px 36px;
+  }
+  .encomenda-banner .btn-primary:hover { background: #2270a8; }
+
+  /* ─── COMO FUNCIONA ─── */
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 32px;
+    position: relative;
+  }
+
+  .step {
+    text-align: center;
+  }
+
+  .step-num {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: var(--rosa);
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    font-family: 'Playfair Display', serif;
+  }
+
+  .step h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+  .step p { font-size: 13px; color: var(--marrom2); line-height: 1.6; }
+
+  /* ─── GALERIA ─── */
+  .galeria {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 200px 200px;
+    gap: 12px;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .gal-item { overflow: hidden; }
+  .gal-item:first-child { grid-column: span 2; grid-row: span 2; }
+
+  .gal-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform .4s ease;
+    display: block;
+  }
+  .gal-item:hover img { transform: scale(1.06); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--marrom);
+    color: rgba(255,255,255,.7);
+    padding: 48px 24px 28px;
+    text-align: center;
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 28px;
+    color: #fff;
+    margin-bottom: 12px;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 20px 0;
+  }
+
+  .footer-links a {
+    color: rgba(255,255,255,.6);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color .2s;
+  }
+  .footer-links a:hover { color: var(--rosa); }
+
+  .footer-socials {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    margin: 20px 0;
+  }
+
+  .social-btn {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    text-decoration: none;
+    transition: transform .2s, opacity .2s;
+  }
+  .social-btn:hover { transform: scale(1.15); opacity: .85; }
+  .social-wa { background: #25d366; }
+  .social-ig { background: linear-gradient(135deg,#f58529,#dd2a7b,#8134af); }
+
+  .footer-copy { font-size: 12px; margin-top: 24px; opacity: .5; }
+
+  /* ─── FLOATING BTNS ─── */
+  .float-btns {
+    position: fixed;
+    bottom: 24px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 800;
+  }
+
+  .float-btn {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    text-decoration: none;
+    box-shadow: 0 4px 16px rgba(0,0,0,.2);
+    transition: transform .2s;
+    border: none;
+    cursor: pointer;
+  }
+  .float-btn:hover { transform: scale(1.1); }
+  .float-wa { background: #25d366; }
+  .float-ig { background: linear-gradient(135deg,#f58529,#dd2a7b,#8134af); }
+
+  /* ─── MODAL ─── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,20,40,.60);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+  }
+  .modal-overlay.open { display: flex; }
+
+  .modal-box {
+    background: var(--creme);
+    border-radius: 24px;
+    width: 100%;
+    max-width: 520px;
+    max-height: 90svh;
+    overflow-y: auto;
+    padding: 36px 28px;
+    position: relative;
+    animation: popIn .3s ease;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 16px; right: 20px;
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    color: var(--marrom);
+    line-height: 1;
+  }
+
+  .modal-box h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    margin-bottom: 8px;
+    color: var(--marrom);
+  }
+
+  .modal-box p {
+    font-size: 13px;
+    color: var(--marrom2);
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+
+  .modal-produto-nome {
+    background: #fff;
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 20px;
+    color: var(--marrom);
+    border-left: 4px solid var(--rosa);
+  }
+
+  .form-group { margin-bottom: 16px; }
+
+  .form-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--marrom);
+    margin-bottom: 6px;
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    padding: 11px 14px;
+    border: 2px solid rgba(13,42,58,.12);
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    background: #fff;
+    color: var(--marrom);
+    transition: border-color .2s;
+    outline: none;
+    -webkit-appearance: none;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus { border-color: var(--rosa); }
+
+  .form-group textarea { resize: vertical; min-height: 80px; }
+
+  .modal-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+  }
+
+  .btn-wpp {
+    flex: 1;
+    background: #25d366;
+    color: #fff;
+    border: none;
+    padding: 14px;
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background .2s;
+  }
+  .btn-wpp:hover { background: #1aad54; }
+
+  .btn-cancel {
+    background: rgba(13,42,58,.08);
+    color: var(--marrom);
+    border: none;
+    padding: 14px 20px;
+    border-radius: 50px;
+    font-size: 14px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: background .2s;
+  }
+  .btn-cancel:hover { background: rgba(13,42,58,.15); }
+
+  /* ─── ENCOMENDA MODAL ─── */
+  .item-list { margin: 16px 0; }
+
+  .item-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    border: 1px solid rgba(13,42,58,.08);
+  }
+
+  .item-card-info { flex: 1; }
+  .item-card-info b { display: block; font-size: 14px; margin-bottom: 2px; }
+  .item-card-info span { color: var(--marrom2); }
+
+  .item-remove {
+    background: #ddeeff;
+    color: var(--rosa-dark);
+    border: none;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .add-item-form {
+    background: #fff;
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border: 2px dashed rgba(91,164,207,.3);
+  }
+
+  .add-item-form h4 {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--marrom);
+  }
+
+  .btn-add-item {
+    background: var(--rosa);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    margin-top: 8px;
+  }
+  .btn-add-item:hover { background: var(--rosa-dark); }
+
+  /* ─── PESQUISA ─── */
+  .search-wrap {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border: 2px solid rgba(13,42,58,.12);
+    border-radius: 50px;
+    padding: 10px 20px;
+    max-width: 420px;
+    margin-bottom: 32px;
+    gap: 8px;
+  }
+
+  .search-wrap input {
+    border: none;
+    outline: none;
+    font-size: 14px;
+    flex: 1;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--marrom);
+    background: transparent;
+  }
+
+  /* ─── ADMIN PANEL ─── */
+  .admin-prod-list { margin: 12px 0 20px; display: flex; flex-direction: column; gap: 10px; max-height: 300px; overflow-y: auto; }
+
+  .admin-prod-item {
+    background: #fff;
+    border-radius: 12px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid rgba(13,42,58,.08);
+  }
+
+  .admin-prod-item img {
+    width: 52px; height: 52px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .admin-prod-item-info { flex: 1; min-width: 0; }
+  .admin-prod-item-info b { display: block; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .admin-prod-item-info span { font-size: 12px; color: var(--marrom2); }
+
+  .admin-prod-actions { display: flex; gap: 6px; flex-shrink: 0; }
+
+  .btn-edit-prod {
+    background: #e8f4ff;
+    color: var(--rosa-dark);
+    border: none;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-edit-prod:hover { background: var(--rosa); color: #fff; }
+
+  .btn-del-prod {
+    background: #ffe0e0;
+    color: #c0392b;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-del-prod:hover { background: #c0392b; color: #fff; }
+
+  .admin-divider {
+    border: none;
+    border-top: 2px dashed rgba(91,164,207,.3);
+    margin: 20px 0;
+  }
+
+  .admin-section-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ouro);
+    margin-bottom: 14px;
+  }
+
+  .cat-select {
+    width: 100%;
+    padding: 11px 14px;
+    border: 2px solid rgba(13,42,58,.12);
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    background: #fff;
+    color: var(--marrom);
+    outline: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+  }
+  .cat-select:focus { border-color: var(--rosa); }
+
+  .badge-logado {
+    display: inline-block;
+    background: #d4edda;
+    color: #155724;
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+    margin-left: 8px;
+  }
+
+  .btn-admin-nav {
+    background: var(--rosa);
+    color: #fff;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all .2s;
+  }
+  .btn-admin-nav:hover { background: var(--rosa-dark); transform: translateY(-1px); }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(.94); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+
+    .galeria {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: 160px 160px;
+    }
+    .gal-item:first-child { grid-column: span 1; grid-row: span 1; }
+
+    .encomenda-banner {
+      padding: 36px 24px;
+      margin: 48px 16px;
+      justify-content: center;
+      text-align: center;
+    }
+    .encomenda-banner p { margin: 0 auto; }
+
+    .steps { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 480px) {
+    .galeria { grid-template-columns: 1fr 1fr; grid-template-rows: 130px 130px; }
+    .steps { grid-template-columns: 1fr; }
+    .diferenciais-grid { grid-template-columns: 1fr 1fr; }
+  }
 </style>
 </head>
-
 <body>
 
-<header>
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">Delícias da Tata</a>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#cardapio">Cardápio</a></li>
+    <li><a href="#como-funciona">Como Funciona</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+  <button class="btn-admin-nav" onclick="abrirLoginAdmin()">👑 Admin</button>
+  <button class="hamburger" onclick="abrirMenuMobile()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
 
-<h1>Delícias da Tata</h1>
-<p>Faça já seu pedido</p>
-
-<input type="text" class="pesquisa" placeholder="Pesquisar produto..." onkeyup="pesquisarProduto()">
-
-<div class="menu-opcoes" onclick="abrirMenu()">☰</div>
-
-<div class="menu-dropdown" id="menuDropdown">
-<div onclick="meuPerfil()">👤 Meu Perfil</div>
-<div onclick="verPedidos()">📦 Pedidos</div>
-<div onclick="verEncomendas()">🎂 Encomendas</div>
-<div onclick="sairConta()">🚪 Sair</div>
+<!-- MENU MOBILE -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="close-menu" onclick="fecharMenuMobile()">✕</button>
+  <a href="#sobre"          onclick="fecharMenuMobile()">Sobre</a>
+  <a href="#cardapio"       onclick="fecharMenuMobile()">Cardápio</a>
+  <a href="#como-funciona"  onclick="fecharMenuMobile()">Como Funciona</a>
+  <a href="#contato"        onclick="fecharMenuMobile()">Contato</a>
+  <a href="#encomenda-btn"  onclick="fecharMenuMobile(); abrirEncomenda()">🎂 Fazer Encomenda</a>
 </div>
 
-</header>
-
-<section class="produtos" id="listaProdutos">
-
-<div class="produto" onclick="abrirPagamento('Bolo de Chocolate')">
-<img src="https://static.itdg.com.br/images/200-160/3b03a942ab534200a0a80eb324828ccb/246606-postprocess-71802381-1893-4fbe-b302-726bfca18774.jpg">
-<h3>Bolo de Chocolate</h3>
-<p class="preco">R$ 35,00</p>
-</div>
-
-<div class="produto" onclick="abrirPagamento('Copo do Amor 500ml')">
-<img src="https://http2.mlstatic.com/D_NQ_NP_967076-MLB43765803963_102020-O.webp">
-<h3>Copo do Amor 500ml</h3>
-<p class="preco">R$ 18,00</p>
-</div>
-
-<div class="produto" onclick="abrirPagamento('Ovo de Páscoa')">
-<img src="https://lojasantoantonio.vtexassets.com/arquivos/ids/226874/2925-Forma-de-Acetato-com-Silicone-para-Ovo-250g-BWB-3.jpg?v=638436018722970000">
-<h3>Ovo de Páscoa 250gm</h3>
-<p>Chocolate ao leite recheado</p>
-<p class="preco">R$ 60,00</p>
-</div>
-
-<div class="produto" onclick="abrirPagamento('Bolo no pote')">
-<img src="https://m.media-amazon.com/images/I/61dcnD4M6JL._AC_UF350,350_QL80_.jpg">
-<h3>Bolo no pote</h3>
-<p class="preco">R$ 15,00</p>
-</div>
-
+<!-- HERO -->
+<section class="hero">
+  <div class="logo-tag">✦ confeitaria artesanal desde 2018 ✦</div>
+  <h1>Feito com <em>amor</em> e muito<br>chocolate 🍫</h1>
+  <p>Bolos, doces e encomendas especiais preparados artesanalmente na cidade de Marília — SP.</p>
+  <div class="hero-btns">
+    <a href="#cardapio" class="btn-primary">Ver Cardápio</a>
+    <button class="btn-outline" onclick="abrirEncomenda()">Fazer Encomenda</button>
+  </div>
 </section>
 
-<div class="adicionar" id="areaAdicionar">
+<!-- SOBRE / DIFERENCIAIS -->
+<section class="section" id="sobre">
+  <div class="section-label">Por que nos escolher</div>
+  <h2 class="section-title">Cada detalhe feito<br><em>com carinho</em></h2>
+  <p class="section-sub">Trabalhamos com ingredientes selecionados para garantir sabor e qualidade em cada pedaço.</p>
 
-<h2>Adicionar Novo Produto</h2>
+  <div class="diferenciais-grid">
+    <div class="diferencial">
+      <div class="icon">🍫</div>
+      <h3>Ingredientes Selecionados</h3>
+      <p>Chocolate belga, frutas frescas e produtos de alta qualidade em cada receita.</p>
+    </div>
+    <div class="diferencial">
+      <div class="icon">🎂</div>
+      <h3>Encomendas Personalizadas</h3>
+      <p>Criamos o bolo dos seus sonhos para festas, aniversários e datas especiais.</p>
+    </div>
+    <div class="diferencial">
+      <div class="icon">🚚</div>
+      <h3>Entrega Rápida</h3>
+      <p>Entregamos com cuidado para que seu pedido chegue fresquinho e perfeito.</p>
+    </div>
+    <div class="diferencial">
+      <div class="icon">💬</div>
+      <h3>Atendimento no WhatsApp</h3>
+      <p>Pedidos e dúvidas resolvidos diretamente via WhatsApp, simples e rápido.</p>
+    </div>
+  </div>
+</section>
 
-<input type="text" id="nome" placeholder="Nome do produto">
-<input type="text" id="descricao" placeholder="Descrição">
-<input type="text" id="preco" placeholder="Preço">
-<input type="text" id="imagem" placeholder="Link da imagem">
-
-<button onclick="adicionarProduto()">Adicionar Produto</button>
-
+<!-- GALERIA -->
+<div class="section" style="padding-top:0">
+  <div class="galeria">
+    <div class="gal-item"><img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800&q=80" alt="Bolo de chocolate"></div>
+    <div class="gal-item"><img src="https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?w=600&q=80" alt="Cupcakes"></div>
+    <div class="gal-item"><img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=600&q=80" alt="Torta"></div>
+    <div class="gal-item"><img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=600&q=80" alt="Doces"></div>
+    <div class="gal-item"><img src="https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=600&q=80" alt="Sorvete"></div>
+  </div>
 </div>
 
-<div class="modal" id="pagamento">
-
-<div class="modal-content">
-
-<h2>Pagamento via Pix</h2>
-<p>Seu pedido será enviado para o WhatsApp para pagamento via Pix.</p>
-<button onclick="finalizarCompra()">Continuar</button>
-
-</div>
-</div>
-
-<div class="chatbox" id="chatbox">
-
-<div class="chatbox-header">Atendimento</div>
-<div class="chatbox-messages" id="mensagens"></div>
-
-<input id="msg">
-<button onclick="enviarMsg()">Enviar</button>
-
-</div>
-
-<div class="chat" onclick="abrirChat()">💬</div>
-
-<a class="instagram" href="https://www.instagram.com/deliciasdatata2018/" target="_blank">📷</a>
-<a class="whatsapp" href="https://wa.me/5514997361120" target="_blank">💬</a>
-
-<div class="admin-btn" onclick="abrirAdmin()">⚙ Admin</div>
-
-<div class="admin" id="admin">
-<h3>Painel de Pedidos</h3>
-<div id="listaPedidos"></div>
-</div>
-
-<footer>
-© 2018 Delícias da Tata
-</footer>
-
-<script>
-
-let senhaAdmin = "tata123"
-let produtoSelecionado = ""
-let pedidos = JSON.parse(localStorage.getItem("pedidos")) || []
-
-function abrirMenu(){
-let menu = document.getElementById("menuDropdown")
-menu.style.display = menu.style.display === "block" ? "none" : "block"
-}
-
-function meuPerfil(){
-alert("Área de perfil em desenvolvimento")
-}
-
-function verPedidos(){
-
-if(pedidos.length === 0){
-alert("Nenhum pedido encontrado")
-return
-}
-
-let lista = pedidos.map(p => p.produto + " - " + p.data).join("\n")
-alert("Seus pedidos:\n\n" + lista)
-
-}
-
-function verEncomendas(){
-alert("Área de encomendas em desenvolvimento")
-}
-
-function sairConta(){
-alert("Sessão encerrada")
-location.reload()
-}
-
-function abrirAdmin(){
-
-let senha = prompt("Digite a senha do administrador:")
-
-if(senha === senhaAdmin){
-
-document.getElementById("admin").style.display="block"
-document.getElementById("areaAdicionar").style.display="block"
-
-}else{
-
-alert("Senha incorreta")
-
-}
-
-}
-
-function adicionarProduto(){
-
-let nome = document.getElementById("nome").value
-let descricao = document.getElementById("descricao").value
-let preco = document.getElementById("preco").value
-let imagem = document.getElementById("imagem").value
-
-let produto = `
-<div class="produto" onclick="abrirPagamento('${nome}')">
-<img src="${imagem}">
-<h3>${nome}</h3>
-<p>${descricao}</p>
-<p class="preco">R$ ${preco}</p>
-</div>
-`
-
-document.getElementById("listaProdutos").innerHTML += produto
-
-}
-
-function abrirPagamento(produto){
-produtoSelecionado = produto
-document.getElementById("pagamento").style.display="flex"
-}
-
-function finalizarCompra(){
-
-let pedido = {
-produto: produtoSelecionado,
-data: new Date().toLocaleString()
-}
-
-pedidos.push(pedido)
-
-localStorage.setItem("pedidos", JSON.stringify(pedidos))
-
-atualizarPainel()
-
-let mensagem = "Olá! Gostaria de fazer um pedido:%0A%0AProduto: "+produtoSelecionado+"%0APagamento: Pix%0ALoja: Delícias da Tata"
-
-let numero = "5514997361120"
-
-let link = "https://wa.me/"+numero+"?text="+mensagem
-
-window.open(link,"_blank")
-
-document.getElementById("pagamento").style.display="none"
-
-}
-
-function pesquisarProduto(){
-
-let input = document.querySelector(".pesquisa").value.toLowerCase()
-
-let produtos = document.querySelectorAll(".produto")
-
-produtos.forEach(p => {
-
-let nome = p.innerText.toLowerCase()
-
-p.style.display = nome.includes(input) ? "" : "none"
-
-})
-
-}
-
-function abrirChat(){
-
-let chat = document.getElementById("chatbox")
-
-chat.style.display = chat.style.display === "block" ? "none" : "block"
-
-}
-
-function enviarMsg(){
-
-let msg = document.getElementById("msg").value
-
-let area = document.getElementById("mensagens")
-
-area.innerHTML += "<div>"+msg+"</div>"
-
-document.getElementById("msg").value=""
-
-}
-
-function atualizarPainel(){
-
-let lista = document.getElementById("listaPedidos")
-
-lista.innerHTML=""
-
-pedidos.forEach((p,i)=>{
-
-lista.innerHTML += `
-<div style="border-bottom:1px solid #ccc;padding:5px;">
-Pedido: ${p.produto}<br>
-Data: ${p.data}<br>
-<button onclick="removerPedido(${i})">Remover</button>
-</div>
-`
-
-})
-
-}
-
-function removerPedido(i){
-
-pedidos.splice(i,1)
-
-localStorage.setItem("pedidos", JSON.stringify(pedidos))
-
-atualizarPainel()
-
-}
-
-window.onload = atualizarPainel
-
-</script>
-
-</body>
-</html>
+<!-- CARDÁPIO -->
+<section id="cardapio" style="background:#fff; padding: 80px 0;">
+<div class="cardapio-inner">
+  <div class="section-label">O que temos</div>
+  <h2 class="section-title">Nosso <em>Cardápio</em></h2>
+  <p class="section-sub">Clique em qualquer produto para enviar seu pedido direto no WhatsApp — rápido e sem complicação.</p>
+
+  <div class="search-wrap">
+    <span>🔍</span>
+    <input type="text" id="pesquisa" placeholder="Buscar produto..." oninput="pesquisar()">
+  </div>
+
+  <div class="filtros">
