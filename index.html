@@ -561,7 +561,7 @@
     background: var(--creme);
     border-radius: 24px;
     width: 100%;
-    max-width: 520px;
+    max-width: 440px;
     max-height: 90svh;
     overflow-y: auto;
     padding: 36px 28px;
@@ -759,8 +759,62 @@
     background: transparent;
   }
 
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(.94); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+
+    .galeria {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: 160px 160px;
+    }
+    .gal-item:first-child { grid-column: span 1; grid-row: span 1; }
+
+    .encomenda-banner {
+      padding: 36px 24px;
+      margin: 48px 16px;
+      justify-content: center;
+      text-align: center;
+    }
+    .encomenda-banner p { margin: 0 auto; }
+
+    .steps { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 480px) {
+    .galeria { grid-template-columns: 1fr 1fr; grid-template-rows: 130px 130px; }
+    .steps { grid-template-columns: 1fr; }
+    .diferenciais-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* ─── ADMIN NAV BTN ─── */
+  .btn-admin-nav {
+    background: rgba(13,42,58,.08);
+    color: var(--marrom);
+    border: 2px solid rgba(13,42,58,.15);
+    padding: 7px 14px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all .2s;
+    letter-spacing: .04em;
+  }
+  .btn-admin-nav:hover { background: var(--marrom); color: #fff; border-color: var(--marrom); }
+
   /* ─── ADMIN PANEL ─── */
-  .admin-prod-list { margin: 12px 0 20px; display: flex; flex-direction: column; gap: 10px; max-height: 300px; overflow-y: auto; }
+  .admin-prod-list { margin: 12px 0 20px; display: flex; flex-direction: column; gap: 10px; }
 
   .admin-prod-item {
     background: #fff;
@@ -850,57 +904,6 @@
     margin-left: 8px;
   }
 
-  .btn-admin-nav {
-    background: var(--rosa);
-    color: #fff;
-    border: none;
-    padding: 8px 18px;
-    border-radius: 50px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-    transition: all .2s;
-  }
-  .btn-admin-nav:hover { background: var(--rosa-dark); transform: translateY(-1px); }
-
-  /* ─── ANIMATIONS ─── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(22px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes popIn {
-    from { opacity: 0; transform: scale(.94); }
-    to   { opacity: 1; transform: scale(1); }
-  }
-
-  /* ─── RESPONSIVE ─── */
-  @media (max-width: 768px) {
-    .nav-links { display: none; }
-    .hamburger { display: flex; }
-
-    .galeria {
-      grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: 160px 160px;
-    }
-    .gal-item:first-child { grid-column: span 1; grid-row: span 1; }
-
-    .encomenda-banner {
-      padding: 36px 24px;
-      margin: 48px 16px;
-      justify-content: center;
-      text-align: center;
-    }
-    .encomenda-banner p { margin: 0 auto; }
-
-    .steps { grid-template-columns: 1fr 1fr; }
-  }
-
-  @media (max-width: 480px) {
-    .galeria { grid-template-columns: 1fr 1fr; grid-template-rows: 130px 130px; }
-    .steps { grid-template-columns: 1fr; }
-    .diferenciais-grid { grid-template-columns: 1fr 1fr; }
-  }
 </style>
 </head>
 <body>
@@ -914,7 +917,7 @@
     <li><a href="#como-funciona">Como Funciona</a></li>
     <li><a href="#contato">Contato</a></li>
   </ul>
-  <button class="btn-admin-nav" onclick="abrirLoginAdmin()">👑 Admin</button>
+  <button class="btn-admin-nav" onclick="abrirLoginAdmin()">⚙ Admin</button>
   <button class="hamburger" onclick="abrirMenuMobile()" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
@@ -995,3 +998,619 @@
   </div>
 
   <div class="filtros">
+    <button class="filtro ativo" onclick="filtrar('todos', this)">Todos</button>
+    <button class="filtro" onclick="filtrar('bolos', this)">Bolos</button>
+    <button class="filtro" onclick="filtrar('doces', this)">Doces</button>
+    <button class="filtro" onclick="filtrar('especiais', this)">Especiais</button>
+  </div>
+
+  <div class="produtos-grid" id="listaProdutos"></div>
+</div>
+</section>
+
+<!-- BANNER ENCOMENDA -->
+<div class="encomenda-banner">
+  <div>
+    <h2>Quer algo <em>especial?</em><br>Faça uma encomenda</h2>
+    <p>Bolos personalizados para festas, casamentos, aniversários e muito mais. Entre em contato e conte o que você imagina!</p>
+  </div>
+  <button class="btn-primary" onclick="abrirEncomenda()">🎂 Fazer Encomenda</button>
+</div>
+
+<!-- COMO FUNCIONA -->
+<section class="section" id="como-funciona">
+  <div class="section-label">Simples assim</div>
+  <h2 class="section-title">Como <em>Funciona</em></h2>
+  <p class="section-sub">Fazer seu pedido é super fácil. Veja como é simples.</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Escolha seu produto</h3>
+      <p>Navegue pelo cardápio e encontre o que mais te agrada.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Clique em pedir</h3>
+      <p>Preencha seus dados básicos e personalize seu pedido.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Vai pro WhatsApp</h3>
+      <p>Você é direcionado direto para o nosso WhatsApp com a mensagem pronta.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h3>Confirme e pague via Pix</h3>
+      <p>Confirmamos o pedido e enviamos o Pix para pagamento. Simples!</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contato">
+  <div class="footer-logo">Delícias da Tata</div>
+  <p style="font-size:14px; max-width:380px; margin:0 auto;">Confeitaria artesanal feita com amor em Marília — SP. 🍰</p>
+
+  <div class="footer-links">
+    <a href="#sobre">Sobre</a>
+    <a href="#cardapio">Cardápio</a>
+    <a href="#como-funciona">Como Funciona</a>
+    <a href="https://www.instagram.com/deliciasdatata2018/" target="_blank">Instagram</a>
+    <a href="https://wa.me/5514997361120" target="_blank">WhatsApp</a>
+  </div>
+
+  <div class="footer-socials">
+    <a href="https://wa.me/5514997361120" target="_blank" class="social-btn social-wa">💬</a>
+    <a href="https://www.instagram.com/deliciasdatata2018/" target="_blank" class="social-btn social-ig">📷</a>
+  </div>
+
+  <p class="footer-copy">© 2018 – 2025 Delícias da Tata. Todos os direitos reservados.</p>
+</footer>
+
+<!-- FLOATING BUTTONS -->
+<div class="float-btns">
+  <a href="https://www.instagram.com/deliciasdatata2018/" target="_blank" class="float-btn float-ig" title="Instagram">📷</a>
+  <a href="https://wa.me/5514997361120" target="_blank" class="float-btn float-wa" title="WhatsApp">💬</a>
+</div>
+
+<!-- ========== MODAL: PEDIDO SIMPLES ========== -->
+<div class="modal-overlay" id="modalPedido">
+  <div class="modal-box">
+    <button class="modal-close" onclick="fecharModal('modalPedido')">✕</button>
+    <h2>Fazer Pedido 🛍️</h2>
+    <p>Complete os campos abaixo. Você será redirecionado para o WhatsApp com a mensagem já preenchida.</p>
+
+    <div class="modal-produto-nome" id="modalProdutoNome"></div>
+
+    <div class="form-group">
+      <label>Seu nome</label>
+      <input type="text" id="pedidoNome" placeholder="Ex: Ana Lima">
+    </div>
+
+    <div class="form-group">
+      <label>Quantidade</label>
+      <input type="number" id="pedidoQtd" value="1" min="1">
+    </div>
+
+    <div class="form-group">
+      <label>Data desejada de entrega</label>
+      <input type="date" id="pedidoData">
+    </div>
+
+    <div class="form-group">
+      <label>Observações (opcional)</label>
+      <textarea id="pedidoObs" placeholder="Recheio, cobertura, mensagem no bolo..."></textarea>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-wpp" onclick="enviarPedidoWpp()">
+        💬 Enviar pelo WhatsApp
+      </button>
+      <button class="btn-cancel" onclick="fecharModal('modalPedido')">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== MODAL: ENCOMENDA ========== -->
+<div class="modal-overlay" id="modalEncomenda">
+  <div class="modal-box">
+    <button class="modal-close" onclick="fecharModal('modalEncomenda')">✕</button>
+    <h2>Fazer Encomenda 🎂</h2>
+    <p>Adicione os itens da sua encomenda e envie pelo WhatsApp. Entraremos em contato para confirmar os detalhes.</p>
+
+    <div class="add-item-form">
+      <h4>+ Adicionar item</h4>
+      <div class="form-group">
+        <label>Produto</label>
+        <input type="text" id="encItem" placeholder="Ex: Bolo de chocolate 2kg">
+      </div>
+      <div class="form-group">
+        <label>Quantidade</label>
+        <input type="number" id="encQtd" value="1" min="1">
+      </div>
+      <div class="form-group">
+        <label>Observações</label>
+        <input type="text" id="encObs" placeholder="Recheio, cobertura, mensagem...">
+      </div>
+      <button class="btn-add-item" onclick="addItemEncomenda()">+ Adicionar</button>
+    </div>
+
+    <div class="form-group">
+      <label>Seu nome</label>
+      <input type="text" id="encNome" placeholder="Ex: Maria Santos">
+    </div>
+
+    <div class="form-group">
+      <label>Data desejada</label>
+      <input type="date" id="encData">
+    </div>
+
+    <div class="item-list" id="encLista"></div>
+
+    <div class="modal-actions">
+      <button class="btn-wpp" onclick="enviarEncomendaWpp()">
+        💬 Enviar Encomenda
+      </button>
+      <button class="btn-cancel" onclick="fecharModal('modalEncomenda')">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ─── DADOS PRODUTOS ─── */
+const produtos = [
+  {
+    nome: "Bolo de Chocolate",
+    categoria: "bolos",
+    descricao: "Massa fofinha com recheio de brigadeiro e cobertura de ganache",
+    preco: "R$ 35,00",
+    img: "https://static.itdg.com.br/images/200-160/3b03a942ab534200a0a80eb324828ccb/246606-postprocess-71802381-1893-4fbe-b302-726bfca18774.jpg"
+  },
+  {
+    nome: "Copo do Amor 500ml",
+    categoria: "doces",
+    descricao: "Mousse cremoso em camadas com frutas e calda especial",
+    preco: "R$ 18,00",
+    img: "https://http2.mlstatic.com/D_NQ_NP_967076-MLB43765803963_102020-O.webp"
+  },
+  {
+    nome: "Sonho de Nutella",
+    categoria: "especiais",
+    descricao: "Massa fofinha e dourada recheada generosamente com Nutella e açúcar de confeiteiro",
+    preco: "R$ 12,00",
+    img: "https://images.unsplash.com/photo-1551106652-a5bcf4b29ab6?w=600&q=80"
+  },
+  {
+    nome: "Bolo no Pote",
+    categoria: "doces",
+    descricao: "Camadas de bolo, brigadeiro e granulado em potinho individual",
+    preco: "R$ 15,00",
+    img: "https://m.media-amazon.com/images/I/61dcnD4M6JL._AC_UF350,350_QL80_.jpg"
+  },
+  {
+    nome: "Bolo Red Velvet",
+    categoria: "bolos",
+    descricao: "Massa aveludada vermelha com cobertura de cream cheese",
+    preco: "R$ 55,00",
+    img: "https://images.unsplash.com/photo-1586788680434-30d324b2d46f?w=600&q=80"
+  },
+  {
+    nome: "Brigadeiro Gourmet",
+    categoria: "doces",
+    descricao: "Caixa com 12 unidades de brigadeiro artesanal variado",
+    preco: "R$ 38,00",
+    img: "https://images.unsplash.com/photo-1599599810694-b5b37304c041?w=600&q=80"
+  },
+];
+
+let categoriaAtual = "todos";
+let encItems = [];
+let produtoAtual = "";
+
+/* ─── RENDER ─── */
+function renderProdutos(lista) {
+  const grid = document.getElementById("listaProdutos");
+  if (lista.length === 0) {
+    grid.innerHTML = '<p style="color:var(--marrom2);padding:20px;">Nenhum produto encontrado.</p>';
+    return;
+  }
+  grid.innerHTML = lista.map(p => `
+    <div class="card" onclick="abrirPedido('${p.nome.replace(/'/g,"\\'")}')">
+      <img class="card-img" src="${p.img}" alt="${p.nome}" loading="lazy">
+      <div class="card-body">
+        <div class="card-tag">${p.categoria}</div>
+        <h3>${p.nome}</h3>
+        <p>${p.descricao}</p>
+        <div class="card-footer">
+          <span class="preco">${p.preco}</span>
+          <button class="btn-pedir" onclick="abrirPedido('${p.nome.replace(/'/g,"\\'")}'); event.stopPropagation()">Pedir ➜</button>
+        </div>
+      </div>
+    </div>
+  `).join("");
+}
+
+function filtrar(cat, btn) {
+  categoriaAtual = cat;
+  document.querySelectorAll('.filtro').forEach(b => b.classList.remove('ativo'));
+  btn.classList.add('ativo');
+  aplicarFiltros();
+}
+
+function pesquisar() {
+  aplicarFiltros();
+}
+
+function aplicarFiltros() {
+  const q = document.getElementById("pesquisa").value.toLowerCase();
+  let lista = produtos;
+  if (categoriaAtual !== "todos") lista = lista.filter(p => p.categoria === categoriaAtual);
+  if (q) lista = lista.filter(p => p.nome.toLowerCase().includes(q) || p.descricao.toLowerCase().includes(q));
+  renderProdutos(lista);
+}
+
+/* ─── MODAL PEDIDO ─── */
+function abrirPedido(nome) {
+  produtoAtual = nome;
+  document.getElementById("modalProdutoNome").textContent = "🛒 " + nome;
+  document.getElementById("pedidoNome").value = "";
+  document.getElementById("pedidoQtd").value = 1;
+  document.getElementById("pedidoObs").value = "";
+  document.getElementById("pedidoData").value = "";
+  abrirModal("modalPedido");
+}
+
+function enviarPedidoWpp() {
+  const nome  = document.getElementById("pedidoNome").value.trim();
+  const qtd   = document.getElementById("pedidoQtd").value;
+  const data  = document.getElementById("pedidoData").value;
+  const obs   = document.getElementById("pedidoObs").value.trim();
+
+  if (!nome) { alert("Por favor, informe seu nome."); return; }
+
+  const dataFmt = data ? new Date(data + "T12:00:00").toLocaleDateString("pt-BR") : "A combinar";
+
+  const msg = [
+    "Olá! Gostaria de fazer um pedido:",
+    "",
+    "🛒 Produto: " + produtoAtual,
+    "👤 Nome: " + nome,
+    "🔢 Quantidade: " + qtd,
+    "📅 Data desejada: " + dataFmt,
+    obs ? "📝 Obs: " + obs : null,
+    "",
+    "💳 Pagamento: Pix",
+    "🏪 Loja: Delícias da Tata"
+  ].filter(Boolean).join("\n");
+
+  window.open("https://wa.me/5514997361120?text=" + encodeURIComponent(msg), "_blank");
+  fecharModal("modalPedido");
+}
+
+/* ─── MODAL ENCOMENDA ─── */
+function abrirEncomenda() {
+  encItems = [];
+  renderEncLista();
+  document.getElementById("encNome").value = "";
+  document.getElementById("encData").value = "";
+  document.getElementById("encItem").value = "";
+  document.getElementById("encQtd").value  = 1;
+  document.getElementById("encObs").value  = "";
+  abrirModal("modalEncomenda");
+}
+
+function addItemEncomenda() {
+  const item = document.getElementById("encItem").value.trim();
+  const qtd  = document.getElementById("encQtd").value;
+  const obs  = document.getElementById("encObs").value.trim();
+  if (!item) { alert("Informe o produto."); return; }
+  encItems.push({ item, qtd, obs });
+  renderEncLista();
+  document.getElementById("encItem").value = "";
+  document.getElementById("encQtd").value  = 1;
+  document.getElementById("encObs").value  = "";
+}
+
+function renderEncLista() {
+  const el = document.getElementById("encLista");
+  if (encItems.length === 0) { el.innerHTML = ""; return; }
+  el.innerHTML = '<p style="font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ouro);margin-bottom:8px;">Itens adicionados</p>' +
+    encItems.map((e, i) => `
+      <div class="item-card">
+        <div class="item-card-info">
+          <b>${e.item}</b>
+          <span>Qtd: ${e.qtd}${e.obs ? ' · ' + e.obs : ''}</span>
+        </div>
+        <button class="item-remove" onclick="removerItem(${i})">Remover</button>
+      </div>
+    `).join("");
+}
+
+function removerItem(i) {
+  encItems.splice(i, 1);
+  renderEncLista();
+}
+
+function enviarEncomendaWpp() {
+  if (encItems.length === 0) { alert("Adicione pelo menos um item."); return; }
+  const nome = document.getElementById("encNome").value.trim();
+  const data = document.getElementById("encData").value;
+  if (!nome) { alert("Informe seu nome."); return; }
+
+  const dataFmt = data ? new Date(data + "T12:00:00").toLocaleDateString("pt-BR") : "A combinar";
+
+  const itensTexto = encItems.map(e =>
+    `🎂 ${e.item} (x${e.qtd})${e.obs ? " — " + e.obs : ""}`
+  ).join("\n");
+
+  const msg = [
+    "Olá! Gostaria de fazer uma encomenda:",
+    "",
+    "👤 Nome: " + nome,
+    "📅 Data desejada: " + dataFmt,
+    "",
+    "📋 Itens:",
+    itensTexto,
+    "",
+    "💳 Pagamento: Pix",
+    "🏪 Loja: Delícias da Tata"
+  ].join("\n");
+
+  window.open("https://wa.me/5514997361120?text=" + encodeURIComponent(msg), "_blank");
+  fecharModal("modalEncomenda");
+}
+
+/* ─── MODAL UTILS ─── */
+function abrirModal(id) {
+  document.getElementById(id).classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function fecharModal(id) {
+  document.getElementById(id).classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+// Fechar modal clicando fora
+document.querySelectorAll('.modal-overlay').forEach(el => {
+  el.addEventListener('click', e => {
+    if (e.target === el) fecharModal(el.id);
+  });
+});
+
+/* ─── MOBILE MENU ─── */
+function abrirMenuMobile()  { document.getElementById("mobileMenu").classList.add("open"); }
+function fecharMenuMobile() { document.getElementById("mobileMenu").classList.remove("open"); }
+
+/* ─── NAVBAR SCROLL ─── */
+window.addEventListener('scroll', () => {
+  document.getElementById("navbar").classList.toggle("scrolled", window.scrollY > 40);
+});
+
+
+/* ─── ADMIN ─── */
+const SENHA_ADMIN = "tata2025";
+let adminLogado = false;
+
+function abrirLoginAdmin() {
+  if (adminLogado) { abrirPainelAdmin(); return; }
+  document.getElementById("senhaAdminInput").value = "";
+  document.getElementById("loginErro").style.display = "none";
+  abrirModal("modalLoginAdmin");
+  setTimeout(() => document.getElementById("senhaAdminInput").focus(), 200);
+}
+
+function confirmarLogin() {
+  const s = document.getElementById("senhaAdminInput").value;
+  if (s === SENHA_ADMIN) {
+    adminLogado = true;
+    fecharModal("modalLoginAdmin");
+    abrirPainelAdmin();
+  } else {
+    document.getElementById("loginErro").style.display = "block";
+    document.getElementById("senhaAdminInput").value = "";
+    document.getElementById("senhaAdminInput").focus();
+  }
+}
+
+function abrirPainelAdmin() {
+  cancelarEdicao();
+  renderAdminLista();
+  abrirModal("modalAdmin");
+}
+
+function fecharAdmin() {
+  fecharModal("modalAdmin");
+}
+
+function renderAdminLista() {
+  const el = document.getElementById("adminProdList");
+  if (produtos.length === 0) {
+    el.innerHTML = '<p style="font-size:13px;color:var(--marrom2);">Nenhum produto cadastrado.</p>';
+    return;
+  }
+  el.innerHTML = produtos.map((p, i) => `
+    <div class="admin-prod-item">
+      <img src="${p.img}" alt="${p.nome}" onerror="this.src='https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=100'">
+      <div class="admin-prod-item-info">
+        <b>${p.nome}</b>
+        <span>${p.preco} · ${p.categoria}</span>
+      </div>
+      <div class="admin-prod-actions">
+        <button class="btn-edit-prod" onclick="editarProduto(${i})">✏ Editar</button>
+        <button class="btn-del-prod" onclick="removerProduto(${i})">🗑</button>
+      </div>
+    </div>
+  `).join("");
+}
+
+function editarProduto(i) {
+  const p = produtos[i];
+  document.getElementById("adminEditIdx").value = i;
+  document.getElementById("adminNome").value  = p.nome;
+  document.getElementById("adminDesc").value  = p.descricao;
+  document.getElementById("adminPreco").value = p.preco;
+  document.getElementById("adminCat").value   = p.categoria;
+  document.getElementById("adminImg").value   = p.img;
+  document.getElementById("adminFormTitulo").textContent = "✏ Editando: " + p.nome;
+  document.getElementById("adminCancelEdit").style.display = "block";
+  previewImg();
+  document.getElementById("adminNome").scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+function removerProduto(i) {
+  if (!confirm("Remover "" + produtos[i].nome + "" do cardápio?")) return;
+  produtos.splice(i, 1);
+  salvarProdutosLocal();
+  renderAdminLista();
+  aplicarFiltros();
+}
+
+function salvarProdutoAdmin() {
+  const nome  = document.getElementById("adminNome").value.trim();
+  const desc  = document.getElementById("adminDesc").value.trim();
+  const preco = document.getElementById("adminPreco").value.trim();
+  const cat   = document.getElementById("adminCat").value;
+  const img   = document.getElementById("adminImg").value.trim();
+  const idx   = parseInt(document.getElementById("adminEditIdx").value);
+
+  if (!nome || !preco) { alert("Preencha pelo menos nome e preço."); return; }
+
+  const prod = { nome, descricao: desc, preco, categoria: cat, img: img || "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&q=80" };
+
+  if (idx >= 0) {
+    produtos[idx] = prod;
+  } else {
+    produtos.push(prod);
+  }
+
+  salvarProdutosLocal();
+  aplicarFiltros();
+  renderAdminLista();
+  cancelarEdicao();
+  alert(idx >= 0 ? "✅ Produto atualizado!" : "✅ Produto adicionado ao cardápio!");
+}
+
+function cancelarEdicao() {
+  document.getElementById("adminEditIdx").value = -1;
+  document.getElementById("adminNome").value  = "";
+  document.getElementById("adminDesc").value  = "";
+  document.getElementById("adminPreco").value = "";
+  document.getElementById("adminCat").value   = "bolos";
+  document.getElementById("adminImg").value   = "";
+  document.getElementById("adminFormTitulo").textContent = "➕ Adicionar novo produto";
+  document.getElementById("adminCancelEdit").style.display = "none";
+  document.getElementById("adminImgPreview").style.display = "none";
+}
+
+function previewImg() {
+  const url = document.getElementById("adminImg").value.trim();
+  const preview = document.getElementById("adminImgPreview");
+  const thumb = document.getElementById("adminImgThumb");
+  if (url) { thumb.src = url; preview.style.display = "block"; }
+  else { preview.style.display = "none"; }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const input = document.getElementById("adminImg");
+  if (input) input.addEventListener("input", previewImg);
+});
+
+function salvarProdutosLocal() {
+  localStorage.setItem("dt_produtos", JSON.stringify(produtos));
+}
+
+// Carregar produtos salvos do localStorage (sobrescreve o array padrão se existir)
+(function carregarProdutosLocal() {
+  const saved = localStorage.getItem("dt_produtos");
+  if (saved) {
+    try {
+      const arr = JSON.parse(saved);
+      if (Array.isArray(arr) && arr.length > 0) {
+        produtos.length = 0;
+        arr.forEach(p => produtos.push(p));
+      }
+    } catch(e) {}
+  }
+})();
+
+/* ─── INIT ─── */
+renderProdutos(produtos);
+</script>
+
+<!-- ========== MODAL: LOGIN ADMIN ========== -->
+<div class="modal-overlay" id="modalLoginAdmin">
+  <div class="modal-box" style="max-width:360px;">
+    <button class="modal-close" onclick="fecharModal('modalLoginAdmin')">✕</button>
+    <h2>🔐 Área Admin</h2>
+    <p>Digite a senha de administrador para acessar o painel de produtos.</p>
+    <div class="form-group">
+      <label>Senha</label>
+      <input type="password" id="senhaAdminInput" placeholder="••••••••" onkeydown="if(event.key==='Enter') confirmarLogin()">
+    </div>
+    <div id="loginErro" style="color:#c0392b;font-size:13px;margin-bottom:12px;display:none;">Senha incorreta. Tente novamente.</div>
+    <div class="modal-actions">
+      <button class="btn-wpp" style="background:var(--rosa-dark);" onclick="confirmarLogin()">Entrar</button>
+      <button class="btn-cancel" onclick="fecharModal('modalLoginAdmin')">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== MODAL: PAINEL ADMIN ========== -->
+<div class="modal-overlay" id="modalAdmin">
+  <div class="modal-box" style="max-width:520px;">
+    <button class="modal-close" onclick="fecharAdmin()">✕</button>
+    <h2>⚙ Painel Admin <span class="badge-logado">Logado</span></h2>
+    <p>Gerencie os produtos do cardápio — edite, remova ou adicione novos itens.</p>
+
+    <!-- LISTA DE PRODUTOS -->
+    <div class="admin-section-title">📋 Produtos cadastrados</div>
+    <div class="admin-prod-list" id="adminProdList"></div>
+
+    <hr class="admin-divider">
+
+    <!-- FORM NOVO / EDITAR PRODUTO -->
+    <div class="admin-section-title" id="adminFormTitulo">➕ Adicionar novo produto</div>
+    <input type="hidden" id="adminEditIdx" value="-1">
+
+    <div class="form-group">
+      <label>Nome do produto</label>
+      <input type="text" id="adminNome" placeholder="Ex: Torta de Morango">
+    </div>
+    <div class="form-group">
+      <label>Descrição</label>
+      <input type="text" id="adminDesc" placeholder="Ex: Base crocante com creme e morangos frescos">
+    </div>
+    <div class="form-group">
+      <label>Preço</label>
+      <input type="text" id="adminPreco" placeholder="Ex: R$ 45,00">
+    </div>
+    <div class="form-group">
+      <label>Categoria</label>
+      <select class="cat-select" id="adminCat">
+        <option value="bolos">Bolos</option>
+        <option value="doces">Doces</option>
+        <option value="especiais">Especiais</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>URL da foto</label>
+      <input type="text" id="adminImg" placeholder="https://...">
+    </div>
+    <div id="adminImgPreview" style="margin-bottom:14px;display:none;">
+      <img id="adminImgThumb" style="width:100%;height:140px;object-fit:cover;border-radius:10px;">
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-wpp" style="background:var(--rosa-dark);" onclick="salvarProdutoAdmin()">💾 Salvar Produto</button>
+      <button class="btn-cancel" id="adminCancelEdit" style="display:none;" onclick="cancelarEdicao()">Cancelar edição</button>
+    </div>
+
+    <hr class="admin-divider" style="margin-top:20px;">
+    <button class="btn-cancel" style="width:100%;text-align:center;" onclick="fecharAdmin()">Sair do painel</button>
+  </div>
+</div>
+
+</body>
+</html>
